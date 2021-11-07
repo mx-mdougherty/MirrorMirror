@@ -21,7 +21,6 @@ function setup() {
   });
 }
 
-
 function preload(){
   sink = loadImage("assets/Sink.png");
 }
@@ -38,12 +37,12 @@ function drawPos(pos) {
   ellipse(pos.x, pos.y, 8, 8);
 }
 
-function draw(){
-  image(sink,(0,0));
-}
-// function foreground() {
+// function draw(){
 //   image(sink,(0,0));
-//   noFIll();
-//   strokeWeight(4);
-//   rect(10,10,(windowWidth-40),(windowHeight-40));
-//  }
+// }
+function foreground() {
+  image(sink,(0,0));
+  noFIll();
+  strokeWeight(4);
+  rect(10,10,(windowWidth-40),(windowHeight-40));
+ }
