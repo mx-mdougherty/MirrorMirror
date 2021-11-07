@@ -1,11 +1,12 @@
+//http
+const http = require('http');
 //express
-let express = require('express');
-let app = express();
+const express = require('express');
+const app = express();
 app.use('/', express.static('public'));
 
-//http
-let http = require('http');
-let server = http.createServer(app);
+
+const server = http.createServer(app);
 let port = process.env.PORT || 3000;
 server.listen(port, () => {
     console.log("Server listening at port: " + port);
@@ -20,15 +21,14 @@ io.sockets.on('connection', function(socket) {
     console.log("We have a new client: " + socket.id);
 
     //listen for data from client
-    socket.on('data', function(data) {
-        console.log("Received: 'data' " + data);
-
-        //send  data to all clients, including this one
-        io.sockets.emit('data', data);
-    });
+    socket.on('mouse', (data) => 
+        // console.log("Received: 'data' " + (data)));
+        //send  data to all clients
+        socket.broadcast.emit('mouse', data));
+        // io.sockets.emit('mouse', (data));
 
     //client disconnects
-    socket.on('disconnect', function() {
-        console.log("A client has disconnected: " + socket.id);
-    });
+    socket.on('disconnect', () =>
+        console.log("A client has disconnected: " + socket.id));
 });
+

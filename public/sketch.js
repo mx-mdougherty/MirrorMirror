@@ -7,6 +7,10 @@ socket.on('connect', function() {
 });
 
 // global variables
+let strokeWidth = 8;
+let color = 255;
+let fadeAmount = 10;
+let f=0;
 
 function setup() {
   let myCanvas = createCanvas(windowWidth,windowHeight);
@@ -15,12 +19,12 @@ function setup() {
   fill(217,226,226);
   noStroke();
   rect(10,10,(windowWidth-40),(windowHeight-40));
-  
   //listen for data
-  socket.on('data', function(obj) {
-    console.log(obj);
-    drawPos(obj);
-  });
+  socket.on('mouse', data => {
+		stroke(color,100);
+		strokeWeight(data.strokeWidth);
+		line(data.x, data.y, data.px, data.py)
+	})
 }
 
 function preload(){
@@ -29,23 +33,41 @@ function preload(){
   hand2 = loadImage("assets/HandR.png");
   heart = loadImage("assets/Heart-03.png");
 }
-
+// dragged
 function mouseDragged() {
-  let mousePos = { x: mouseX, y: mouseY };
-  //send data to the server
-  socket.emit('data', mousePos);
+  stroke(255,100);
+  strokeWeight(strokeWidth);
+  line(mouseX, mouseY, pmouseX, pmouseY)
+  // send coordinates
+  sendmouse(mouseX, mouseY, pmouseX, pmouseY)
 }
+  //send ALL data to the server
+function sendmouse(x, y, pX, pY) {
+  const data = {
+   x: x,
+   y: y,
+   px: pX,
+   py: pY,
+   color: (color,100),
+   strokeWidth: strokeWidth,
+  }
+  socket.emit('mouse', data)
+ }
+ 
 
 function doubleClicked() {
   imageMode(CENTER);
-  let imageHand = ["hand1", "hand2", "heart"];
-  image(hand1,mouseX,mouseY,100,100);
+  let imageHand = [hand1, hand2, heart];
+  let img = random(imageHand);
+    image(img,mouseX,mouseY,random(70,110),random(70,110));
 }
 
-function drawPos(pos) {
+// fade out
+function mouseReleased() {
+  fill(217,226,226,f);
+  f += fadeAmount;
   noStroke();
-  fill(255);
-  ellipse(pos.x, pos.y, 8, 8);
+  rect(10,10,(windowWidth-40),(windowHeight-40));
 }
 
 function draw(){
