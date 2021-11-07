@@ -6,6 +6,8 @@ socket.on('connect', function() {
   console.log("Connected");
 });
 
+// global variables
+
 function setup() {
   let myCanvas = createCanvas(windowWidth,windowHeight);
   myCanvas.parent ("data_container");
@@ -23,6 +25,9 @@ function setup() {
 
 function preload(){
   sink = loadImage("assets/Sink.png");
+  hand1 = loadImage("assets/HandL.png");
+  hand2 = loadImage("assets/HandR.png");
+  heart = loadImage("assets/Heart-03.png");
 }
 
 function mouseDragged() {
@@ -31,18 +36,20 @@ function mouseDragged() {
   socket.emit('data', mousePos);
 }
 
+function doubleClicked() {
+  imageMode(CENTER);
+  let imageHand = ["hand1", "hand2", "heart"];
+  image(hand1,mouseX,mouseY,100,100);
+}
+
 function drawPos(pos) {
   noStroke();
   fill(255);
   ellipse(pos.x, pos.y, 8, 8);
 }
 
-// function draw(){
-//   image(sink,(0,0));
-// }
-function foreground() {
-  image(sink,(0,0));
-  noFIll();
-  strokeWeight(4);
-  rect(10,10,(windowWidth-40),(windowHeight-40));
- }
+function draw(){
+  imageMode(CENTER);
+  image(sink,(windowWidth/2),(3*windowHeight/4));
+}
+
