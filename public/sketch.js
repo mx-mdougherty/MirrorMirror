@@ -10,9 +10,14 @@ socket.on('connect', function() {
 let strokeWidth = 8;
 let fadeAmount = .1;
 let f=0;
-let fade=100;
 let fadeOut = -10;
 
+function preload(){
+  sink = loadImage("assets/Sink.png");
+  hand1 = loadImage("assets/HandL.png");
+  hand2 = loadImage("assets/HandR.png");
+  heart = loadImage("assets/Heart-03.png");
+}
 function setup() {
   let myCanvas = createCanvas(windowWidth,windowHeight);
   myCanvas.parent ("data_container");
@@ -22,9 +27,10 @@ function setup() {
   rect(10,10,(windowWidth-40),(windowHeight-40));
   //listen for data
   socket.on('mouse', data => {
-		stroke(255,100);
+		stroke(255,150);
 		strokeWeight(data.strokeWidth);
 		line(data.x, data.y, data.px, data.py)
+    f=0;
 	})
   // listen for handprint
   socket.on ('handprint', details =>{
@@ -33,15 +39,9 @@ function setup() {
   })
 }
 
-function preload(){
-  sink = loadImage("assets/Sink.png");
-  hand1 = loadImage("assets/HandL.png");
-  hand2 = loadImage("assets/HandR.png");
-  heart = loadImage("assets/Heart-03.png");
-}
 // dragged
 function mouseDragged() {
-  stroke(255,100);
+  stroke(255,150);
   strokeWeight(strokeWidth);
   line(mouseX, mouseY, pmouseX, pmouseY)
   // send coordinates
@@ -54,7 +54,7 @@ function sendmouse(x, y, pX, pY) {
    y: mouseY,
    px: pmouseX,
    py: pmouseY,
-   color: (255,fade),
+   color: (255,100),
    strokeWidth: strokeWidth,
   }
   socket.emit('mouse', data)
@@ -90,7 +90,11 @@ function draw(){
     f=0;
   }
   else{
-  // fade out
+    setTimeout(fade,5000);
+  }
+
+  // how to wait 5 seconds and then fade out
+  function fade(){
   fill(217,226,226,f);
   f += fadeAmount;
   noStroke();
