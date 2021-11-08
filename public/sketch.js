@@ -16,6 +16,9 @@ function preload(){
   sink = loadImage("assets/Sink.png");
   hand1 = loadImage("assets/HandL.png");
   hand2 = loadImage("assets/HandR.png");
+  hand3 = loadImage("assets/hand-04.png");
+  hand4 = loadImage("assets/hand-05.png");
+  hand5 = loadImage("assets/hand-06.png");
   heart = loadImage("assets/Heart-03.png");
 }
 function setup() {
@@ -35,7 +38,7 @@ function setup() {
   // listen for handprint
   socket.on ('handprint', details=> {
     imageMode(CENTER);
-    let imageHand = [hand1, hand2, heart];
+    let imageHand = [hand1, hand2, hand3, hand4, hand5];
     let imgSelect = random(imageHand)
     image(imgSelect,details.x,details.y,details.imgSize,details.imgSize);
   });
@@ -66,7 +69,7 @@ function sendmouse(mouseX, mouseY, pmouseX, pmouseY) {
 //  handprint
 function doubleClicked() {
   imageMode(CENTER);
-  let imageHand = [hand1, hand2, heart];
+  let imageHand = [hand1, hand2, hand3, hand4, hand5];
   let imgSelect = random(imageHand)
   let imgSize = random(50,150);
   image(imgSelect,mouseX,mouseY,imgSize,imgSize);
