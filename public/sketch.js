@@ -33,13 +33,16 @@ function setup() {
     f=0;
 	})
   // listen for handprint
-  socket.on ('handprint', details =>{
+  socket.on ('handprint', details=> {
     imageMode(CENTER);
-    image(details.img,details.x,details.y,details.imgSize,details.imgSize);
-  })
+    let imageHand = [hand1, hand2, heart];
+    let imgSelect = random(imageHand)
+    image(imgSelect,details.x,details.y,details.imgSize,details.imgSize);
+  });
 }
 
-// dragged
+
+// draw on mirror
 function mouseDragged() {
   stroke(255,150);
   strokeWeight(strokeWidth);
@@ -48,7 +51,7 @@ function mouseDragged() {
   sendmouse(mouseX, mouseY, pmouseX, pmouseY)
 }
   //send ALL data to the server
-function sendmouse(x, y, pX, pY) {
+function sendmouse(mouseX, mouseY, pmouseX, pmouseY) {
   const data = {
    x: mouseX,
    y: mouseY,
@@ -60,20 +63,18 @@ function sendmouse(x, y, pX, pY) {
   socket.emit('mouse', data)
  }
 
-
+//  handprint
 function doubleClicked() {
   imageMode(CENTER);
   let imageHand = [hand1, hand2, heart];
-  let img = random(imageHand);
+  let imgSelect = random(imageHand)
   let imgSize = random(50,150);
-  image(img,mouseX,mouseY,imgSize,imgSize);
-  handprint(img,mouseX,mouseY,imgSize);
+  image(imgSelect,mouseX,mouseY,imgSize,imgSize);
+  handprint(mouseX,mouseY,imgSize);
 }
-
-//  handprint
-function handprint(img,mouseX,mouseY,imgSize){
+// send
+function handprint(mouseX,mouseY,imgSize){
   const details={
-    img: img,
     x: mouseX,
     y: mouseY,
     imgSize: imgSize,
@@ -91,8 +92,8 @@ function draw(){
     f=0;
   }
   else{
-    // how to wait 5 seconds and then fade out
-    setTimeout(fade,5000);
+    // how to wait 4.5 seconds and then fade out
+    setTimeout(fade,4500);
   }
 
   function fade(){
@@ -104,7 +105,7 @@ function draw(){
 
 // place sink image
   imageMode(CENTER);
-  image(sink,(windowWidth/2),(3*windowHeight/4));
+  image(sink,(windowWidth/2),(windowHeight-175));
 }
 
 

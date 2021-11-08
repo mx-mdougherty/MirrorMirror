@@ -4,8 +4,9 @@ const http = require('http');
 const express = require('express');
 const app = express();
 app.use('/', express.static('public'));
-
+// misc
 const cors = require("cors");
+var fs = require('fs'); // required for file serving
 
 
 const server = http.createServer(app);
