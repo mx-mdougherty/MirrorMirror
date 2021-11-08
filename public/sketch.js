@@ -54,22 +54,12 @@ function sendmouse(x, y, pX, pY) {
    y: mouseY,
    px: pmouseX,
    py: pmouseY,
-   color: (255,100),
+   color: (255,150),
    strokeWidth: strokeWidth,
   }
   socket.emit('mouse', data)
  }
- handprint
-function handprint(img,x,y,img,imgSize){
-  const details={
-    x: mouseX,
-    y: mouseY,
-    img: img,
-    imgSize: imgSize,
-  }
-  socket.emit('handprint', details)
- }
- 
+
 
 function doubleClicked() {
   imageMode(CENTER);
@@ -79,6 +69,17 @@ function doubleClicked() {
   image(img,mouseX,mouseY,imgSize,imgSize);
   handprint(img,mouseX,mouseY,imgSize);
 }
+
+//  handprint
+function handprint(img,mouseX,mouseY,imgSize){
+  const details={
+    img: img,
+    x: mouseX,
+    y: mouseY,
+    imgSize: imgSize,
+  }
+  socket.emit('handprint', details)
+ }
 
 function mouseReleased() {
   f=0;
@@ -90,10 +91,10 @@ function draw(){
     f=0;
   }
   else{
+    // how to wait 5 seconds and then fade out
     setTimeout(fade,5000);
   }
 
-  // how to wait 5 seconds and then fade out
   function fade(){
   fill(217,226,226,f);
   f += fadeAmount;
