@@ -8,9 +8,10 @@ socket.on('connect', function() {
 
 // global variables
 let strokeWidth = 8;
-let color = 255;
-let fadeAmount = 10;
+let fadeAmount = .1;
 let f=0;
+let fade=100;
+let fadeOut = -10;
 
 function setup() {
   let myCanvas = createCanvas(windowWidth,windowHeight);
@@ -21,10 +22,15 @@ function setup() {
   rect(10,10,(windowWidth-40),(windowHeight-40));
   //listen for data
   socket.on('mouse', data => {
-		stroke(color,100);
+		stroke(255,100);
 		strokeWeight(data.strokeWidth);
 		line(data.x, data.y, data.px, data.py)
 	})
+  // listen for handprint
+  socket.on ('handprint', details =>{
+    imageMode(CENTER);
+    image(details.img,details.x,details.y,details.imgSize,details.imgSize);
+  })
 }
 
 function preload(){
@@ -44,14 +50,24 @@ function mouseDragged() {
   //send ALL data to the server
 function sendmouse(x, y, pX, pY) {
   const data = {
-   x: x,
-   y: y,
-   px: pX,
-   py: pY,
-   color: (color,100),
+   x: mouseX,
+   y: mouseY,
+   px: pmouseX,
+   py: pmouseY,
+   color: (255,fade),
    strokeWidth: strokeWidth,
   }
   socket.emit('mouse', data)
+ }
+ handprint
+function handprint(img,x,y,img,imgSize){
+  const details={
+    x: mouseX,
+    y: mouseY,
+    img: img,
+    imgSize: imgSize,
+  }
+  socket.emit('handprint', details)
  }
  
 
@@ -59,19 +75,31 @@ function doubleClicked() {
   imageMode(CENTER);
   let imageHand = [hand1, hand2, heart];
   let img = random(imageHand);
-    image(img,mouseX,mouseY,random(70,110),random(70,110));
+  let imgSize = random(50,150);
+  image(img,mouseX,mouseY,imgSize,imgSize);
+  handprint(img,mouseX,mouseY,imgSize);
 }
 
-// fade out
 function mouseReleased() {
+  f=0;
+  }
+
+function draw(){
+  if (mouseIsPressed) {
+    // pause fade
+    f=0;
+  }
+  else{
+  // fade out
   fill(217,226,226,f);
   f += fadeAmount;
   noStroke();
   rect(10,10,(windowWidth-40),(windowHeight-40));
-}
+  }
 
-function draw(){
+// place sink image
   imageMode(CENTER);
   image(sink,(windowWidth/2),(3*windowHeight/4));
 }
+
 

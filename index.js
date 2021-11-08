@@ -5,6 +5,8 @@ const express = require('express');
 const app = express();
 app.use('/', express.static('public'));
 
+const cors = require("cors");
+
 
 const server = http.createServer(app);
 let port = process.env.PORT || 3000;
@@ -26,6 +28,10 @@ io.sockets.on('connection', function(socket) {
         //send  data to all clients
         socket.broadcast.emit('mouse', data));
         // io.sockets.emit('mouse', (data));
+
+    socket.on('handprint', (details) => 
+        //send  data to all clients
+        socket.broadcast.emit('handprint', details));
 
     //client disconnects
     socket.on('disconnect', () =>
