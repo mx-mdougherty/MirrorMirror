@@ -26,11 +26,12 @@ io.sockets.on('connection', function(socket) {
         // console.log("Received: 'data' " + (data)));
         //send  data to all clients
         socket.broadcast.emit('mouse', data));
-        // io.sockets.emit('mouse', (data));
 
     socket.on('handprint', (details) => 
-        //send  data to all clients
         socket.broadcast.emit('handprint', details));
+
+    socket.on('heart', (specs) =>
+        socket.broadcast.emit('heart', specs));
 
     //client disconnects
     socket.on('disconnect', () =>
