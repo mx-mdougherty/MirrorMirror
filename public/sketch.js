@@ -10,7 +10,6 @@ socket.on('connect', function() {
 let strokeWidth = 8;
 let fadeAmount = .1;
 let f=0;
-let fadeOut = -10;
 
 function preload(){
   sink = loadImage("assets/Sink.png");
