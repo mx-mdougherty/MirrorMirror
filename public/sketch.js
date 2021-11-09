@@ -1,3 +1,11 @@
+// NEXT STEPS
+// add hidden interaction for faucet - turn nob add steam
+// add faucet animation?
+// add drips https://editor.p5js.org/RosaK/sketches/BJW6xl1_Q
+// add champer of secrets - when click on hole sent to new, 
+// private room where users see a secret and leave one secret before 
+// being sent to main room again. if they have gone once, will only be able to see same secret/ one secret- cant go back
+
 //socket
 let socket = io();
 
@@ -10,6 +18,7 @@ socket.on('connect', function() {
 let strokeWidth = 8;
 let fadeAmount = .1;
 let f=0;
+let i;
 
 function preload(){
   sink = loadImage("assets/Sink.png");
@@ -93,6 +102,7 @@ function handprint(mouseX,mouseY,imgSize){
   socket.emit('handprint', details)
  }
 
+
 // //soap dispenser 
  function mousePressed(){
   if ((mouseX > ((windowWidth/2)-200)) && (mouseX < ((windowWidth/2)-140)) && (mouseY > (windowHeight-325)) && (mouseY < (windowHeight-200))){
@@ -104,16 +114,24 @@ function handprint(mouseX,mouseY,imgSize){
   }
   else{}
 }
-// send hear
+// send heart
 function sendHeart(size){
 const specs={
   size: size,
 }
 socket.emit('heart', specs)
 }
+
 function mouseReleased() {
+  // i=0;
   f=0;
-  // delay fade out
+  noStroke;
+  // drips after draw start 
+  // fill('white');
+  // let drip = random(5,50);
+  // for (let i = 0; i < drip; i=i+(.01)){
+  //   ellipse(mouseX, (mouseY+i),2.5,2.5);
+  // }
   }
 
 function draw(){
