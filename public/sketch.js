@@ -1,10 +1,10 @@
-// NEXT STEPS
+// TO DO
+// Improve on stroke weight effect
+// send stroke weight data from other users
+// Update graphics from other users 
 // add hidden interaction for faucet - turn nob add steam
 // add faucet animation?
 // add drips https://editor.p5js.org/RosaK/sketches/BJW6xl1_Q
-// add champer of secrets - when click on hole sent to new, 
-// private room where users see a secret and leave one secret before 
-// being sent to main room again. if they have gone once, will only be able to see same secret/ one secret- cant go back
 
 //socket
 let socket = io();
@@ -19,6 +19,7 @@ let strokeWidth = 8;
 let fadeAmount = .1;
 let f=0;
 let i;
+let speed;
 
 function preload(){
   sink = loadImage("assets/Sink.png");
@@ -27,6 +28,11 @@ function preload(){
   hand3 = loadImage("assets/hand-04.png");
   hand4 = loadImage("assets/hand-05.png");
   hand5 = loadImage("assets/hand-06.png");
+  hand11 = loadImage("assets/HandL-blue.png");
+  hand12 = loadImage("assets/HandR-blue.png");
+  hand13 = loadImage("assets/hand-04-blue.png");
+  hand14 = loadImage("assets/hand-05-blue.png");
+  hand15 = loadImage("assets/hand-06-blue.png");
   heart = loadImage("assets/Heart-03.png");
 }
 function setup() {
@@ -35,12 +41,11 @@ function setup() {
   background(255);
   fill(217,226,226);
   noStroke();
-  // noCursor();
   cursor(HAND);
   rect(10,10,(windowWidth-40),(windowHeight-40));
   //listen for data
   socket.on('mouse', data => {
-		stroke(255,150);
+		stroke(168, 190, 192, 204);
 		strokeWeight(data.strokeWidth);
 		line(data.x, data.y, data.px, data.py)
     f=0;
@@ -49,9 +54,9 @@ function setup() {
   // listen for handprint
   socket.on ('handprint', details=> {
     imageMode(CENTER);
-    let imageHand = [hand1, hand2, hand3, hand4, hand5];
-    let imgSelect = random(imageHand)
-    image(imgSelect,details.x,details.y,details.imgSize,details.imgSize);
+    let imageHandBlue = [hand11, hand12, hand13, hand14, hand15];
+    let imgSelectBlue = random(imageHandBlue)
+    image(imgSelectBlue,details.x,details.y,details.imgSize,details.imgSize);
   });
 
   // listen for heart
@@ -65,10 +70,11 @@ function setup() {
 // draw on mirror
 function mouseDragged() {
   stroke(255,150);
-  strokeWeight(strokeWidth);
+  let speed = mouseX - pmouseX;
+  strokeWeight(map(speed,0,75,8,15));
   line(mouseX, mouseY, pmouseX, pmouseY)
   // send coordinates
-  sendmouse(mouseX, mouseY, pmouseX, pmouseY)
+  sendmouse(mouseX, mouseY, pmouseX, pmouseY, strokeWeight)
 }
   //send ALL data to the server
 function sendmouse(mouseX, mouseY, pmouseX, pmouseY) {
@@ -77,7 +83,6 @@ function sendmouse(mouseX, mouseY, pmouseX, pmouseY) {
    y: mouseY,
    px: pmouseX,
    py: pmouseY,
-   color: (255,150),
    strokeWidth: strokeWidth,
   }
   socket.emit('mouse', data)
@@ -106,21 +111,22 @@ function handprint(mouseX,mouseY,imgSize){
 // //soap dispenser 
  function mousePressed(){
   if ((mouseX > ((windowWidth/2)-200)) && (mouseX < ((windowWidth/2)-140)) && (mouseY > (windowHeight-325)) && (mouseY < (windowHeight-200))){
-    imageMode(CENTER);
-    let size = random(200,400);
-    // let misc = random(windowWidth);
-    image(heart,(random(windowWidth)),(random(windowHeight)),size,size);
-    sendHeart(size);
+    window.location = "/chamber";
+    //  heart
+    // imageMode(CENTER);
+    // let size = random(100,350);
+    // image(hear, (random(windowWidth)),(random(windowHeight)),size,size);
+    // sendHeart(size);
   }
   else{}
 }
 // send heart
-function sendHeart(size){
-const specs={
-  size: size,
-}
-socket.emit('heart', specs)
-}
+// function sendHeart(size){
+// const specs={
+//   size: size,
+// }
+// socket.emit('heart', specs)
+// }
 
 function mouseReleased() {
   // i=0;
