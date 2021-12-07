@@ -7,11 +7,11 @@
 
 
 //  get data from db file
-// fetch ("/Secrets")
+// fetch ("/getSecrets")
 //  .then (resp=>resp.json())
 //  .then (data=>{
 //     let number = data.data.length; 
-// })
+// });
 
 // p5js canvas
 let number=10;

@@ -77,12 +77,12 @@ app.post("/Secrets",(req,res)=>{
 })
 
 // route for secrets
-app.get ("/Secrets",(req,res)=>{
+app.get ("/getSecrets",(req,res)=>{
     db.find({}, (err,docs)=>{
         if(err){
             res.json({task:"Task failed"});
         } else{
-            let obj = {data,docs};
+            let obj = {data:docs};
             res.json(obj);
         }
     })

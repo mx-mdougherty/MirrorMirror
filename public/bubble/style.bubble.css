@@ -1,3 +1,73 @@
-body{
-    margin: 0%;
+@font-face {
+    font-family: Font1;
+    src: url("assets/5yearsoldfont.ttf");
+    font-family: Font2;
+    src: url("assets/Airplanes in the Night Sky.ttf");
+    font-family: Font3;
+    src: url("assets/alphabetized cassette tapes.ttf");
+    font-family: Font4;
+    src: url("assets/Architex.ttf");
+    font-family: Font5;
+    src: url("assets/ashcanbb_reg.ttf");
+    font-family: Font6;
+    src: url("assets/attack of the cucumbers.ttf");
+    font-family: Font7;
+    src: url("assets/Blah blah bang.ttf");
+    font-family: Font8;
+    src: url("assets/Broetown Signature.ttf");
+    font-family: Font9;
+    src: url("assets/BrownBagLunch.ttf");
+    font-family: Font10;
+    src: url("assets/CATHSGBR.TTF");
+    font-family: Font11;
+    src: url("assets/DawningofaNewDay.ttf");
+    font-family: Font12;
+    src: url("assets/khand.ttf");
+    font-family: Font13;
+    src: url("assets/mayqueen.ttf");
+    font-family: Font14;
+    src: url("assets/Otto.ttf");
+    font-family: Font15;
+    src: url("assets/PermanentMarker.ttf");
+    font-family: Font16;
+    src: url("assets/Popsies.ttf");
+    font-family: Font17;
+    src: url("assets/Rudiment.ttf");
+    font-family: Font18;
+    src: url("assets/Southam Demo.otf");
+    font-family: Font19;
+    src: url("assets/Tafelschrift.ttf");
+    font-family: Font20;
+    src: url("assets/blzee.ttf");
 }
+
+html{
+    background-image: url("assets/BigBubble-09.png");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+body{ 
+    margin:auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#secret-info{
+    width:50%;
+    height: 60%;
+    font-size: 75px;
+    text-align: center;
+}
+
+p {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }

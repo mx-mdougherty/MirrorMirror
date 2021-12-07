@@ -1,62 +1,48 @@
 // REFERENCES:
 // https://editor.p5js.org/aferriss/sketches/SJhoZHsqf
     
-fetch ("/Secrets")
+fetch ("/getSecrets")
  .then (resp=>resp.json())
  .then (data=>{
-    console.log(data);
-    // let randomSecretIndex= Math.floor(Math.random()*data.data.length);
-    // let showSecret = data.data[randomSecretIndex].secret;
-    // // console.log(showSecret);
-    // document.getElementById("secret-info").innerHTML="";
-    // let elt= document.createElement("p");
-    // elt.innerHTML=showSecret;
-    // document.getElementById("secret-info").appendChild(elt);
+    let randomSecretIndex= Math.floor(Math.random()*data.data.length);
+    let showSecret = data.data[randomSecretIndex].secret;
+    console.log(showSecret);
+    document.getElementById("secret-info").innerHTML="";
+    let elt= document.createElement("p");
+    elt.innerHTML=showSecret;
+    document.getElementById("secret-info").appendChild(elt);
 });
 
-let fontName = [
-    "5yearsoldfont.ttf",
-    "Airplanes in the Night Sky.ttf",
-    "alphabetized cassette tapes.ttf",
-    "Architex.ttf",
-    "ashcanbb_reg.ttf",
-    "attack of the cucumbers.ttf",
-    "Blah blah bang.ttf",
-    "Broetown Signature.ttf",
-    "BrownBagLunch.ttf",
-    "CATHSGBR.TTF",
-    "DawningofaNewDay.ttf",
-    "khand.ttf",
-    "mayqueen.ttf",
-    "Otto.ttf",
-    "PermanentMarker.ttf",
-    "Popsies.ttf",
-    "Rudiment.ttf",
-    "Southam Demo.otf",
-    "Tafelschrift.ttf",
-    "blzee.ttf",
+let fontSrc = [
+   "assets/5yearsoldfont.ttf",
+    "assets/Airplanes in the Night Sky.ttf",
+    "assets/alphabetized cassette tapes.ttf",
+    "assets/Architex.ttf",
+    "assets/ashcanbb_reg.ttf",
+    "assets/attack of the cucumbers.ttf",
+    "assets/Blah blah bang.ttf",
+    "assets/Broetown Signature.ttf",
+    "assets/BrownBagLunch.ttf",
+    "assets/CATHSGBR.TTF",
+    "assets/DawningofaNewDay.ttf",
+    "assets/khand.ttf",
+    "assets/mayqueen.ttf",
+    "assets/Otto.ttf",
+    "assets/PermanentMarker.ttf",
+    "assets/Popsies.ttf",
+    "assets/Rudiment.ttf",
+    "assets/Southam Demo.otf",
+    "assets/Tafelschrift.ttf",
+    "assets/blzee.ttf",
 ]
 
-function preload(){
-    bubble1 = loadImage("assets/Bubble-01.png");
-}
+let number;
+number=getRndFont(1,fontSrc.length);
+console.log("Font"+[number]);
+document.getElementById("secret-info").style.fontFamily="Font"+[number];
 
-function setup() {
-    let myCanvas = createCanvas(windowWidth, windowHeight);
-    myCanvas.parent("secret-space");
-    noStroke();
-}
-
-function draw() {
- //  get data from db file
-    background(255);
-    imageMode(CENTER);
-    image(bubble1, (windowWidth/2), (windowHeight/2), 1000,1000);
-}
- 
-function mousePressed() {
-    window.location = "/";
-}
-
-
-
+function getRndFont(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
