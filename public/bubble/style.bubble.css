@@ -1,42 +1,80 @@
 @font-face {
     font-family: Font1;
     src: url("assets/5yearsoldfont.ttf");
+}
+@font-face {
     font-family: Font2;
     src: url("assets/Airplanes in the Night Sky.ttf");
+}
+@font-face {
     font-family: Font3;
     src: url("assets/alphabetized cassette tapes.ttf");
+}
+@font-face {
     font-family: Font4;
     src: url("assets/Architex.ttf");
+}
+@font-face {
     font-family: Font5;
     src: url("assets/ashcanbb_reg.ttf");
+}
+@font-face {
     font-family: Font6;
     src: url("assets/attack of the cucumbers.ttf");
+}
+@font-face {
     font-family: Font7;
     src: url("assets/Blah blah bang.ttf");
+}
+@font-face {
     font-family: Font8;
     src: url("assets/Broetown Signature.ttf");
+}
+@font-face {
     font-family: Font9;
     src: url("assets/BrownBagLunch.ttf");
+}
+@font-face {
     font-family: Font10;
     src: url("assets/CATHSGBR.TTF");
+}
+@font-face {
     font-family: Font11;
     src: url("assets/DawningofaNewDay.ttf");
+}
+@font-face {
     font-family: Font12;
     src: url("assets/khand.ttf");
+}
+@font-face {
     font-family: Font13;
     src: url("assets/mayqueen.ttf");
+}
+@font-face {
     font-family: Font14;
     src: url("assets/Otto.ttf");
+}
+@font-face {
     font-family: Font15;
     src: url("assets/PermanentMarker.ttf");
+}
+@font-face {
     font-family: Font16;
     src: url("assets/Popsies.ttf");
+}
+@font-face {
     font-family: Font17;
     src: url("assets/Rudiment.ttf");
+}
+@font-face {
     font-family: Font18;
     src: url("assets/Southam Demo.otf");
+}
+@font-face {
     font-family: Font19;
     src: url("assets/Tafelschrift.ttf");
+}
+@font-face {
     font-family: Font20;
     src: url("assets/blzee.ttf");
 }
@@ -62,6 +100,7 @@ body{
     height: 60%;
     font-size: 75px;
     text-align: center;
+    font-family: Font1;
 }
 
 p {
